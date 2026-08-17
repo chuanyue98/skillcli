@@ -69,11 +69,15 @@ func registryGet(path string, params url.Values) (*registryResponse, error) {
 	return &out, nil
 }
 
+// registryFields 注册表条目需要的字段子集（跳过 body 等大字段，省流量）。
+const registryFields = "id,name,description,path,tags,version,category,official,score.total,score.level,repo.fullName,repo.stars"
+
 // searchRegistry 搜索注册表，按评分降序。
 func searchRegistry(query string, limit int) ([]registryItem, error) {
 	p := url.Values{}
 	p.Set("q", query)
 	p.Set("sort", "score")
+	p.Set("fields", registryFields)
 	if limit > 0 {
 		p.Set("limit", strconv.Itoa(limit))
 	}
