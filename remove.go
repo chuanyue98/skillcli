@@ -36,6 +36,10 @@ func cmdRemove(args []string, flags *cliFlags, home, cwd string) error {
 			}
 			fmt.Printf("🗑️  %s → 已卸载 %s\n", a.Name, dest)
 			removed++
+			// 同步清理 lockfile（按技能名匹配所有来源记录）
+			if err := removeFromLock(home, name); err != nil {
+				fmt.Printf("⚠️  lockfile 清理失败: %v\n", err)
+			}
 		}
 	}
 	if removed == 0 {

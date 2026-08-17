@@ -71,7 +71,7 @@ func isInstalled(a Agent, home string) bool {
 }
 
 // resolveAgents 把 -a 参数解析成目标 agent 列表。
-// -a '*' → 全部支持；-a ''（未指定）→ 已检测到的；否则按逗号分隔匹配。
+// -a '*' → 全部支持；-a 未指定 → 已检测到的；否则按逗号分隔匹配。
 func resolveAgents(param string, home string) ([]Agent, error) {
 	all := Supported(home)
 	if param == "" {
